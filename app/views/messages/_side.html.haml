@@ -1,8 +1,8 @@
 .chat-side_header.columns.is-half.has-text-centered
   .chat-side_header_name.column.has-text-white
-    shouya
+    = current_user.name
   .chat-side_header_icons.column.is-flex
-    = link_to '#' do
+    = link_to edit_user_path(current_user) do
       = fa_icon("gear")
     = link_to '#' do
       = fa_icon("edit")
