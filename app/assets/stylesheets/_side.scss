@@ -7,8 +7,10 @@
 		border-bottom: 1px solid white;
 		&_name {
 			padding-left: 20px;
+			font-size: 27px;
 		}
 		&_icons {
+			font-size: 20px;
 			i {
 				padding-top: 13px;
 			}
@@ -19,6 +21,10 @@
 		font-size: 20px;
 		&_group {
 			font-weight: bold;
+			font-size: 17px;
+		}
+		&_message {
+			font-size: 15px;
 		}
 	}
 }
