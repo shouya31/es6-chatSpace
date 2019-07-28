@@ -27,15 +27,15 @@ window.addEventListener("load", function () {
 
 
   function wordKeyup() {
-
     if (group_users.length !== 0) {
       result.innerHTML = "";
       group_users.forEach(function (user, user_ids) {
         buildHtml(user, user_ids + 1)
       })
-
     }
+  };
 
+  function AddUser(){
     const btn = document.querySelectorAll(".chat-group-user")
     for (let user of btn) {
       user.addEventListener('click', function () {
@@ -45,19 +45,25 @@ window.addEventListener("load", function () {
         group_users.shift(user_name)
         console.log(group_users)
         buildAddUserHTML(user_name, user_id)
-
-        const delete_btn = document.querySelectorAll(".js-chat-member")
-        for (let delete_user of delete_btn) {
-          delete_user.addEventListener('click', function () {
-            let deleted_user = delete_user.querySelector("p").textContent
-            delete_user.remove()
-            group_users.push(deleted_user);
-          })
-        }
       });
-    };
+    }
   }
+    
+  function DeleteUser(){
+    const delete_btn = document.querySelectorAll(".js-chat-member")
+    for (let delete_user of delete_btn) {
+      delete_user.addEventListener('click', function () {
+        let deleted_user = delete_user.querySelector("p").textContent
+        delete_user.remove()
+        group_users.push(deleted_user);
+      })
+    }
+  } 
 
-  input.addEventListener('keyup', wordKeyup);
+  input.addEventListener('keyup', function() {
+    Promise.all([wordKeyup, AddUser, DeleteUser]).then(values => { 
+    });
+  })
+  
 
 });
