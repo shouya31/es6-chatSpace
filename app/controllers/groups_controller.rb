@@ -1,11 +1,23 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: [:edit, :update]
-  
+
   def index
   end
 
   def new
     @group = Group.new
+    group_user = User.all
+
+    user_name = group_user.map do |user|
+      user.name
+    end
+    @user_name_json = user_name.to_json.html_safe
+
+    user_id = group_user.map do |user|
+      user.id
+    end
+    @user_id_json = user_id.to_json.html_safe
+
     @group.users << current_user
   end
 
