@@ -8,6 +8,8 @@ window.addEventListener("load", function () {
   let ids = document.querySelector("#group_user_id_info").value
   let user_ids = JSON.parse(ids);
 
+  
+
   function buildHtml(user_name, user_id) {
     let html = `<div class="chat-group-user clearfix">
                   <p class="chat-group-user__name">${user_name}</p>
@@ -25,17 +27,18 @@ window.addEventListener("load", function () {
     document.querySelector("#chat-group-user-22").insertAdjacentHTML("afterend", html)
   }
 
-
-  function wordKeyup() {
-    if (group_users.length !== 0) {
-      result.innerHTML = "";
-      group_users.forEach(function (user, user_ids) {
-        buildHtml(user, user_ids + 1)
+  function DeleteUser() {
+    const delete_btn = document.querySelectorAll(".js-chat-member")
+    for (let delete_user of delete_btn) {
+      delete_user.addEventListener('click', function () {
+        let deleted_user = delete_user.querySelector("p").textContent
+        delete_user.remove()
+        group_users.push(deleted_user);
       })
     }
-  };
+  }
 
-  function AddUser(){
+  function AddUser() {
     const btn = document.querySelectorAll(".chat-group-user")
     for (let user of btn) {
       user.addEventListener('click', function () {
@@ -45,25 +48,21 @@ window.addEventListener("load", function () {
         group_users.shift(user_name)
         console.log(group_users)
         buildAddUserHTML(user_name, user_id)
+        DeleteUser()
       });
+    };
+  }
+
+  function wordKeyup() {
+    if (group_users.length !== 0) {
+      result.innerHTML = "";
+      group_users.forEach(function (user, user_ids) {
+        buildHtml(user, user_ids + 1)
+      })
+      AddUser()
     }
   }
-    
-  function DeleteUser(){
-    const delete_btn = document.querySelectorAll(".js-chat-member")
-    for (let delete_user of delete_btn) {
-      delete_user.addEventListener('click', function () {
-        let deleted_user = delete_user.querySelector("p").textContent
-        delete_user.remove()
-        group_users.push(deleted_user);
-      })
-    }
-  } 
 
-  input.addEventListener('keyup', function() {
-    Promise.all([wordKeyup, AddUser, DeleteUser]).then(values => { 
-    });
-  })
-  
+  input.addEventListener('keyup', wordKeyup);
 
 });
